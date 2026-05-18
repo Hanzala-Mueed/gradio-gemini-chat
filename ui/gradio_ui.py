@@ -16,7 +16,7 @@ def chat_function(message, history):
 
     response = ask_question(message)
     #history.append((message, response))
-    
+
     history.append(
         {
             "role": "user",
