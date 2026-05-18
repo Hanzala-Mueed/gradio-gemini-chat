@@ -1,6 +1,7 @@
 # gradio-gemini-chat
 An authentication-secured RAG chatbot template built with Gradio and Gemini API, supporting document context parsing and system prompt configuration.
 
+```bash
 gradio-gemini-chat/
 │
 ├── app.py                     # Main entry point
@@ -33,6 +34,7 @@ gradio-gemini-chat/
 │
 └── utils/
     └── helpers.py
+```
 
 
 ## Gradio-Gemini-Chat
@@ -48,21 +50,21 @@ The chatbot reads a hardcoded PDF document and answers user questions according 
 
 ---
 
-# 1. Clone the github repo
-# 2. Create .venv and run this command
+## 1. Clone the github repo
+## 2. Create .venv and run this command
     pip install -r requirements.txt
 
-# 3. create .env file in the project root dir and add these lines
+## 3. create .env file in the project root dir and add these lines
     GEMINI_API_KEY=your_actual_gemini_api_key
     MODEL_NAME=gemini-2.5-flash
 
-# 4. add pdf doc in docs/ and pdf filename should be like 'sample.pdf'
-# 5. Run project by using this command : python app.py
-# 6. sample login credentials 
+## 4. add pdf doc in docs/ and pdf filename should be like 'sample.pdf'
+## 5. Run project by using this command : python app.py
+## 6. sample login credentials 
     Username: user
     Password: 123
 
-# Current Features (Vol 1)
+## Current Features (Vol 1)
     Gradio UI
     Login Authentication
     Gemini API Integration
@@ -70,14 +72,14 @@ The chatbot reads a hardcoded PDF document and answers user questions according 
     System Prompt Based Responses
     PDF Question Answering
 
-# Current Limitations
+## Current Limitations
     No chunking
     No embeddings
     No semantic retrieval
     No vector database
     Works best with text-based PDFs
 
-# Upcoming Features (Vol 2)
+## Upcoming Features (Vol 2)
     Chunking
     Embeddings
     Semantic Search
