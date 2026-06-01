@@ -1,6 +1,10 @@
 from document_loader.pdf_reader import read_pdf
 from utils.logger import logger
 
+from document_loader.chunking import (
+    create_chunks
+)
+
 
 class DocumentService:
 
@@ -25,3 +29,11 @@ class DocumentService:
         )
 
         return self.document_text
+    
+    def create_document_chunks(self):
+
+        self.chunks = create_chunks(
+            self.document_text
+        )
+
+        return self.chunks
