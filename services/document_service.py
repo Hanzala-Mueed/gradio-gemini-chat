@@ -48,3 +48,9 @@ class DocumentService:
         )
 
         return self.embeddings
+    
+    def get_chunks(self):
+        return self.chunks
+
+    def get_embeddings(self):
+        return self.embeddings

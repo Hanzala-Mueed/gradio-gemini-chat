@@ -47,3 +47,17 @@ def generate_embeddings(chunks: list[str]):
         raise EmbeddingError(
             f"Embedding generation failed: {str(e)}"
         )
+    
+def generate_query_embedding(query: str):
+
+    try:
+        return embedding_model.encode(
+            query,
+            convert_to_numpy=True
+        )
+
+    except Exception as e:
+
+        raise EmbeddingError(
+            f"Query embedding failed: {str(e)}"
+        )
