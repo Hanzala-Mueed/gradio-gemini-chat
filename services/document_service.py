@@ -1,18 +1,16 @@
 from document_loader.pdf_reader import read_pdf
 from utils.logger import logger
-
-from document_loader.chunking import (
-    create_chunks
-)
-
+from document_loader.chunking import create_chunks
+from llm.embeddings import generate_embeddings
 
 class DocumentService:
 
     def __init__(self, pdf_path: str):
 
         self.pdf_path = pdf_path
-
         self.document_text = ""
+        self.chunks = []
+        self.embeddings = None
 
     def load_document(self):
 
@@ -37,3 +35,16 @@ class DocumentService:
         )
 
         return self.chunks
+    
+
+    def generate_document_embeddings(self):
+
+        logger.info(
+            "Generating document embeddings"
+        )
+
+        self.embeddings = generate_embeddings(
+            self.chunks
+        )
+
+        return self.embeddings
