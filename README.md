@@ -1,88 +1,372 @@
-# gradio-gemini-chat
-An authentication-secured RAG chatbot template built with Gradio and Gemini API, supporting document context parsing and system prompt configuration.
+# Semantic PDF Assistant
 
-```bash
-gradio-gemini-chat/
+A semantic PDF-based AI assistant built with Gradio, Gemini, and Retrieval-Augmented Generation (RAG) concepts.
+
+The application reads PDF documents, creates semantic embeddings, retrieves the most relevant content using cosine similarity, and answers user questions based only on the document context.
+
+---
+
+## Features
+
+### Authentication
+- Simple login authentication
+- Default credentials:
+  - Username: `user`
+  - Password: `123`
+
+### AI Chatbot
+- Gemini-powered chatbot
+- Custom system prompts
+- Context-aware responses
+
+### PDF Processing
+- Automatic PDF loading
+- PDF text extraction using PyPDF
+- Hardcoded document support
+
+### Semantic Retrieval
+- Document chunking
+- Overlapping chunks
+- Sentence Transformer embeddings
+- Semantic similarity search
+- Cosine similarity ranking
+
+### RAG Pipeline
+- User query embedding generation
+- Retrieval of top relevant chunks
+- Context injection into Gemini prompt
+- Answers generated only from retrieved document context
+
+### Logging & Error Handling
+- Structured logging
+- Custom exception classes
+- Try/Except handling throughout the application
+
+---
+
+## Tech Stack
+
+### Frontend
+- Gradio
+
+### Backend
+- Python 3.11.9
+
+### LLM
+- Gemini 2.5 Flash
+
+### Embeddings
+- Sentence Transformers
+- all-MiniLM-L6-v2
+
+### Retrieval
+- Cosine Similarity
+- Scikit-Learn
+
+### PDF Processing
+- PyPDF
+
+---
+
+## Project Architecture
+
+```text
+User Question
+      │
+      ▼
+Query Embedding
+      │
+      ▼
+Cosine Similarity Search
+      │
+      ▼
+Top Relevant Chunks
+      │
+      ▼
+Gemini
+      │
+      ▼
+Final Answer
+```
+
+---
+
+## Project Structure
+
+```text
+semantic-pdf-assistant/
 │
-├── app.py                     # Main entry point
+├── app.py
 ├── requirements.txt
 ├── .env
 ├── README.md
 │
-├── config/
-│   ├── settings.py            # API keys & configs
-│   └── prompts.py             # System prompts
-│
 ├── auth/
-│   └── login.py               # Simple authentication logic
+│   └── login.py
+│
+├── config/
+│   ├── prompts.py
+│   └── settings.py
 │
 ├── docs/
-│   └── sample.pdf             # Hardcoded PDF
-│
-├── llm/
-│   ├── gemini_client.py       # Gemini API handling
-│   └── chatbot.py             # Chat response pipeline
+│   └── english2.pdf
 │
 ├── document_loader/
-│   └── pdf_reader.py          # Read PDF text
+│   ├── pdf_reader.py
+│   └── chunking.py
 │
-├── ui/
-│   └── gradio_ui.py           # Gradio frontend
+├── llm/
+│   ├── gemini_client.py
+│   ├── embeddings.py
+│   └── semantic_search.py
 │
 ├── services/
-│   └── chat_service.py        # Connect PDF + Prompt + Gemini
+│   ├── chat_service.py
+│   └── document_service.py
+│
+├── ui/
+│   └── gradio_ui.py
 │
 └── utils/
+    ├── logger.py
+    ├── exceptions.py
     └── helpers.py
 ```
 
+---
 
-## Gradio-Gemini-Chat
+## RAG Workflow
 
-A simple AI-powered PDF chatbot built using:
+### Step 1 - Load PDF
 
-- Gradio
-- Gemini API
-- Python
-- PDF Reader
+```text
+PDF
+ ↓
+Extract Text
+```
 
-The chatbot reads a hardcoded PDF document and answers user questions according to the document content.
+### Step 2 - Chunking
+
+```text
+Document Text
+ ↓
+Overlapping Chunks
+```
+
+Example:
+
+```text
+Chunk 1: 0 - 500
+Chunk 2: 400 - 900
+Chunk 3: 800 - 1300
+```
+
+### Step 3 - Embeddings
+
+```text
+Chunks
+ ↓
+Sentence Transformer
+ ↓
+Vector Embeddings
+```
+
+### Step 4 - Semantic Search
+
+```text
+User Question
+ ↓
+Question Embedding
+ ↓
+Cosine Similarity
+ ↓
+Top 3 Relevant Chunks
+```
+
+### Step 5 - Answer Generation
+
+```text
+Relevant Chunks
+ ↓
+Gemini
+ ↓
+Final Response
+```
 
 ---
 
-## 1. Clone the github repo
-## 2. Create .venv and run this command
-    pip install -r requirements.txt
+## Installation
 
-## 3. create .env file in the project root dir and add these lines
-    GEMINI_API_KEY=your_actual_gemini_api_key
-    MODEL_NAME=gemini-2.5-flash
+### 1. Clone Repository
 
-## 4. add pdf doc in docs/ and pdf filename should be like 'sample.pdf'
-## 5. Run project by using this command : python app.py
-## 6. sample login credentials 
-    Username: user
-    Password: 123
+```bash
+git clone <repo-link>
 
-## Current Features (Vol 1)
-    Gradio UI
-    Login Authentication
-    Gemini API Integration
-    Hardcoded PDF Reading
-    System Prompt Based Responses
-    PDF Question Answering
+```
+
+---
+
+### 2. Create Virtual Environment
+
+Windows
+
+```bash
+python -m venv venv
+```
+
+Activate
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / Mac
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root directory.
+
+```env
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+MODEL_NAME=gemini-2.5-flash
+```
+
+---
+
+## Getting Gemini API Key
+
+1. Open Google AI Studio
+2. Create an API Key
+3. Copy the generated key
+4. Paste it into `.env`
+
+Google AI Studio:
+
+https://aistudio.google.com/app/apikey
+
+---
+
+## Configure PDF
+
+Place your PDF inside:
+
+```text
+docs/
+```
+
+Example:
+
+```text
+docs/
+└── english2.pdf
+```
+
+Update PDF path if needed:
+
+```python
+services/chat_service.py
+PDF_PATH = "docs/english2.pdf"
+```
+
+---
+
+## Run Application
+
+```bash
+python app.py
+```
+
+Application starts on:
+
+```text
+http://127.0.0.1:7860
+```
+
+---
+
+## Login Credentials
+
+Default credentials:
+
+```text
+Username: user
+Password: 123
+```
+
+---
+
+## Example Questions
+
+```text
+What is a present perfect tense?
+
+Explain examples of present perfect tense.
+
+What are the rules of simple present tense?
+```
+
+---
 
 ## Current Limitations
-    No chunking
-    No embeddings
-    No semantic retrieval
-    No vector database
-    Works best with text-based PDFs
 
-## Upcoming Features (Vol 2)
-    Chunking
-    Embeddings
-    Semantic Search
-    Retrieval Pipeline
-    Better Prompt Engineering
-    Multiple PDF Support
+- Single PDF support
+- No vector database
+- Embeddings generated at startup
+- No PDF upload from UI
+- No chat history persistence
+
+---
+
+## Future Improvements
+
+### Version 3
+
+- Multiple PDF support
+- PDF upload from UI
+- Embedding caching
+- FAISS integration
+- ChromaDB integration
+- Conversation memory
+- Streaming responses
+- User management
+- Document management dashboard
+
+---
+
+## Learning Concepts Covered
+
+- Gradio UI
+- Authentication
+- Gemini API
+- PDF Parsing
+- Chunking
+- Overlapping Chunking
+- Embeddings
+- Semantic Search
+- Cosine Similarity
+- Retrieval-Augmented Generation (RAG)
+- Logging
+- Exception Handling
+
+---
+
+## Author
+
+Hanzala Mueed Khan
+
+Semantic PDF Assistant – Vol 2
