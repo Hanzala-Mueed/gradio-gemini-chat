@@ -15,9 +15,21 @@ document_service = DocumentService(
 
 pdf_text = document_service.load_document()
 
+chunks = (
+    document_service
+    .create_document_chunks()
+)
+logger.info(
+    f"Chunks Created: {len(chunks)}"
+)
+
+logger.info(
+    f"First Chunk:\n{chunks[0]}"
+)
+
 
 # pdf_text = read_pdf(PDF_PATH)
-print(pdf_text[:500])  # Print the first 500 characters of the PDF content for verification
+# print(pdf_text[:500])  # Print the first 500 characters of the PDF content for verification
 
 def ask_question(user_question: str):
 
