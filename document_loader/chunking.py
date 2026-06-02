@@ -3,22 +3,28 @@ from utils.logger import logger
 
 def create_chunks(
     text: str,
-    chunk_size: int = 500
+    chunk_size: int = 500,
+    overlap: int = 100
 ):
 
     logger.info(
-        f"Creating chunks with size {chunk_size}"
+        f"Creating chunks | size={chunk_size} | overlap={overlap}"
     )
 
     chunks = []
 
-    for i in range(
-        0,
-        len(text),
-        chunk_size
-    ):
-        chunks.append(
-            text[i:i + chunk_size]
+    start = 0
+
+    while start < len(text):
+
+        end = start + chunk_size
+
+        chunk = text[start:end]
+
+        chunks.append(chunk)
+
+        start += (
+            chunk_size - overlap
         )
 
     logger.info(

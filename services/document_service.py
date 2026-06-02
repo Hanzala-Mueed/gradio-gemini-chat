@@ -2,6 +2,7 @@ from document_loader.pdf_reader import read_pdf
 from utils.logger import logger
 from document_loader.chunking import create_chunks
 from llm.embeddings import generate_embeddings
+from config.settings import CHUNK_SIZE, CHUNK_OVERLAP
 
 class DocumentService:
 
@@ -31,7 +32,9 @@ class DocumentService:
     def create_document_chunks(self):
 
         self.chunks = create_chunks(
-            self.document_text
+            self.document_text,
+            chunk_size=CHUNK_SIZE,
+            overlap=CHUNK_OVERLAP
         )
 
         return self.chunks

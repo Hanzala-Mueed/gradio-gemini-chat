@@ -72,6 +72,17 @@ def ask_question(user_question: str):
             f"Relevant Chunks Found: {len(relevant_chunks)}"
         )
 
+        # for chunks debugging
+        logger.info(
+            "Retrieved Context:"
+        )
+
+        for index, chunk in enumerate(
+            relevant_chunks,
+            start=1
+        ):
+            logger.info(f"\nChunk {index}:\n{chunk[:200]}")
+
         # Create context from retrieved chunks
         context = "\n\n".join(
             relevant_chunks
